@@ -6,8 +6,6 @@ import os
 import json
 import discord.ui as ui
 
-class MyClass:
-    pass 
 intents = discord.Intents.all()
 intents.message_content = True
 intents.members = True
@@ -25,7 +23,7 @@ async def on_ready():
         name="Youtube",
         url="https://youtu.be/fLexgOxsZu0?si=FDsmMCgM367IY6c0"
     )
-    await bot.change_presence(status=discord.Status.online, activity=acacacaclogggiin)
+    await bot.change_presence(status=discord.Status.online, activity=activity)
 
 voice_data = {}
 
@@ -43,10 +41,8 @@ def save_data():
         json.dump(voice_data, f)
 
 @bot.event
-async def on_ready():
     global voice_data
     voice_data = load_data()
-    await bot.tree.sync()
 
 @bot.tree.command(name="setuproom", description="Setup ระบบห้องเสียง")
 async def setuproom(interaction: discord.Interaction):
