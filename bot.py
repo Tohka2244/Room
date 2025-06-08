@@ -15,16 +15,6 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
 
-@bot.event
-async def on_ready():
-    await bot.tree.sync()
-    print(f"✅ บอททำงานในชื่อ {bot.user}")
-    activity = discord.Streaming(
-        name="Youtube",
-        url="https://youtu.be/fLexgOxsZu0?si=FDsmMCgM367IY6c0"
-    )
-    await bot.change_presence(status=discord.Status.online, activity=activity)
-
 voice_data = {}
 
 DATA_FILE = "voice_data.json"
@@ -41,8 +31,18 @@ def save_data():
         json.dump(voice_data, f)
 
 @bot.event
+async def on_ready():
+    await bot.tree.sync()
+    print(f"✅ บอททำงานในชื่อ {bot.user}")
+    activity = discord.Streaming(
+        name="Youtube",
+        url="https://youtu.be/fLexgOxsZu0?si=FDsmMCgM367IY6c0"
+    )
+    await bot.change_presence(status=discord.Status.online, activity=activity)
+
     global voice_data
     voice_data = load_data()
+    
 
 @bot.tree.command(name="setuproom", description="Setup ระบบห้องเสียง")
 async def setuproom(interaction: discord.Interaction):
